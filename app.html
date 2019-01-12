@@ -51,7 +51,7 @@
         //replace the url
         $vm.convert_url=function(url){
             var public_url='https://woolcock-imr.github.io/apap-ohs-2';
-            var local_url='http://127.0.0.1:8000/woolcock-imr/apap-ohs-2';
+            var local_url='http://127.0.0.1:8000/vmiis/apap-ohs-test';
             var urlR=url.replace("$A",public_url);
             if($vm.localhost==true) urlR=urlR.replace(public_url,local_url);
             return urlR;

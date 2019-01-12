@@ -160,7 +160,8 @@
         $vm.url=function(text){
             text=text.replace(/__HOST__\//g,$vm.hosting_path+'/');
             text=text.replace(/__VER__/g,$vm.ver[0]);
-            text=text.replace(/__COMPONENT__\//g,'https://vm.vmiis.com/component/');
+            if($vm.api_type=="sqlserver") text=text.replace(/__COMPONENT__\//g,'https://vm.vmiis.com/component-s/');
+            else                          text=text.replace(/__COMPONENT__\//g,'https://vm.vmiis.com/component/');
             if(window.location.toString().indexOf('_d=1')!=-1){
                 var host=window.location.protocol+'//'+window.location.host;
                 text=text.replace(/https:\/\/vm.vmiis.com/g,host+'/vmiis/vm');
