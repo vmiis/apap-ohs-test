@@ -15,9 +15,9 @@
             <div menu id="vm-menu">
                 <a href="?/home"><i class="fa fa-home"></i> Home</a>
                 <a href="?/panel-main"><i class="fa fa-th"></i> APAP-OHS</a>
-                <a href="?/permissions"><i class="fa fa-lock"></i> Permissions</a>
-                <a id=vm_signin onclick="$vm.nav_wappsystem_signin();"><i class="fa fa-user"></i> Sign In</a>
-                <a id=vm_signout class=vm-hide onclick=$vm.nav_signout()><i class="fa fa-user"></i> Sign Out</a>
+                <a href="?/panel-permission"><i class="fa fa-lock"></i> Permissions</a>
+                <a id=vm_signin onclick="$vm.signin();"><i class="fa fa-user"></i> Sign In</a>
+                <a class=vm-hide id=vm_signout onclick=$vm.signout()><i class="fa fa-user"></i> Sign Out</a>
             </div>
         </div>
         <div id=c_footer>
@@ -26,9 +26,11 @@
 </div>
     <script main-code>
         //------------------------------------
-        //database service address
+        //mongo database service address
         //$vm.api_address="https://api.wappsystem.com";
         //if(window.location.toString().indexOf('_p=1')!=-1) $vm.api_address="https://api.wappsystem.com:3000";
+        //------------------------------------
+        //sql server database service address
         $vm.api_type="sqlserver"; 
         $vm.qid='91000127'; //permission control table
         $VmAPI={}
@@ -38,25 +40,50 @@
         //Setup each module's Table (you can create your own tables in backoffice)
         $vm.module_list={
             "home":                             {url:"$A/modules/h/home.html"},
-            "edc-notes-data":	  		        {url:"$A/modules/e/edc-notes-data.html",Table:"91000125",form_module:"edc-notes-form"},
-		    "edc-notes-form":	  		        {url:"$A/modules/e/edc-notes-form.html",Table:"91000125",},
             "panel-main":  		  			    {url:"$A/modules/p/panel-main.html",router:1},
             "panel-child": 		  			    {url:"$A/modules/p/panel-child.html"},
+            "panel-permission":   			    {url:"$A/modules/p/panel-permission.html",router:1},
+            
+            "permission-check":                 {url:"$A/modules/p/permission-check.html"},
+            "permission-role-login-data":       {url:"$A/modules/p/permission-role-login-data.html",Table:"91000129",form_module:"permission-role-login-form"},
+            "permission-role-login-form":       {url:"$A/modules/p/permission-role-login-form.html",Table:"91000129"},
+            "permission-role-table-group-data": {url:"$A/modules/p/permission-role-table-group-data.html",Table:"91000128",form_module:"permission-role-table-group-form"},
+            "permission-role-table-group-form": {url:"$A/modules/p/permission-role-table-group-form.html",Table:"91000128"},
+            "permission-query-data":            {url:"$A/modules/p/permission-query-data.html",Table:"91000127",form_module:"permission-query-form"},
+            "permission-query-form":            {url:"$A/modules/p/permission-query-form.html",Table:"91000127"},
+
+            "edc-notes-data":	  		        {url:"$A/modules/e/edc-notes-data.html",Table:"91000125",form_module:"edc-notes-form"},
+		    "edc-notes-form":	  		        {url:"$A/modules/e/edc-notes-form.html",Table:"91000125",},
             "participant-data":     	        {url:"$A/modules/p/participant-data.html", Table:"91000124",form_module:"participant-form"},
 		    "participant-form":     	        {url:"$A/modules/p/participant-form.html", Table:"91000124",},
             "randomisation-low-co2-table-data":	{url:"$A/modules/r/randomisation-low-co2-table-data.html",Table:"91000194",router:1},
 		    "randomisation-high-co2-table-data":{url:"$A/modules/r/randomisation-high-co2-table-data.html",Table:"91000195",router:1},
+            
+            "v1-consent-data":	 	            {url:"$A/modules/c/consent-data.html",Table:"91000130",form_module:"v1-consent-form"},
+		    "v1-consent-form":	 	            {url:"$A/modules/c/consent-form.html",Table:"91000130",quest:"1"},
+            "v1-gen-info-data":	 	            {url:"$A/modules/g/geninfo-data.html",Table:"91000131",	form_module:"v1-gen-info-form"},
+		    "v1-gen-info-form":	 	            {url:"$A/modules/g/geninfo-form.html",Table:"91000131",	quest:"1"},
+            "v1-anthropometry":	 	            {url:"$A/modules/a/anthro-data.html",Table:"91000176",form_module:"v1-anthropometry-form"},
+		    "v1-anthropometry-form":	 	    {url:"$A/modules/a/anthro-form.html",Table:"91000176",quest:"1"},
+            "v1-med-hx":	 	                {url:"$A/modules/m/medhx-data.html",Table:"91000170",form_module:"v1-med-hx-form"},
+		    "v1-med-hx-form":	 	            {url:"$A/modules/m/medhx-form.html",Table:"91000170",quest:"1"},
+            "v1-social-hx":	 	                {url:"$A/modules/s/social-data.html",Table:"91000174",form_module:"v1-social-hx-form"},
+		    "v1-social-hx-form":	 	        {url:"$A/modules/s/social-form.html",Table:"91000174",quest:"1"},
+            "v1-physical":	 	                {url:"$A/modules/p/physical-data.html",Table:"91000168",form_module:"v1-physical-form"},
+            "v1-physical-form":	 	            {url:"$A/modules/p/physical-form.html",Table:"91000168",quest:"1"},
+            "v1-medication":	 	            {url:"$A/modules/m/med-data.html",Table:"91000158",form_module:"v1-medication-form"},
+            "v1-medication-form":	 	        {url:"$A/modules/m/med-form.html",Table:"91000158",quest:"1"},
+            "v1-spirometry":	 	            {url:"$A/modules/s/spirometry-data.html",Table:"91000160",form_module:"v1-spirometry-form"},
+		    "v1-spirometry-form":	 	        {url:"$A/modules/s/spirometry-form.html",Table:"91000160",quest:"1"},
+            "v1-ecg":	 	                    {url:"$A/modules/e/ecg-data.html",Table:"91000147",form_module:"v1-ecg-form"},
+		    "v1-ecg-form":	 	                {url:"$A/modules/e/ecg-form.html",Table:"91000147",quest:"1"},
+            "v1-bloodgas":	 	                {url:"$A/modules/b/bloodgas-data.html",Table:"91000148",form_module:"v1-bloodgas-form"},
+		    "v1-bloodgas-form":	 	            {url:"$A/modules/b/bloodgas-form.html",Table:"91000148",quest:"1"},
+            "v1-blood":	 	                    {url:"$A/modules/b/blood-data.html",Table:"91000167",form_module:"v1-blood-form"},
+		    "v1-blood-form":	 	            {url:"$A/modules/b/blood-form.html",Table:"91000167",quest:"1"},
         }
         //------------------------------------
-        //replace the url
-        $vm.convert_url=function(url){
-            var public_url='https://woolcock-imr.github.io/apap-ohs-2';
-            var local_url='http://127.0.0.1:8000/vmiis/apap-ohs-test';
-            var urlR=url.replace("$A",public_url);
-            if($vm.localhost==true) urlR=urlR.replace(public_url,local_url);
-            return urlR;
-        }
-        for(p in $vm.module_list) $vm.module_list[p].url=$vm.convert_url($vm.module_list[p].url);
+        for(p in $vm.module_list) $vm.module_list[p].url=$vm.replace_url($vm.module_list[p].url);
         //------------------------------------
         //Set your default web page title and footer text
         $vm.default_title="Woolcock";

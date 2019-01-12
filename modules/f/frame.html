@@ -54,10 +54,20 @@
             }
             //---------------------------------------------
             window.onmessage=function(e){
-                if(e.data.username!=undefined && e.data.token!=undefined){
-                    $vm.user_name=e.data.username;
-                    $vm.set_token(e.data.token,e.data.username);
-                    location.reload(true);
+                if($vm.api_type=="sqlserver"){
+                    if(e.data.username!=undefined && e.data.user_id!=undefined){
+                        $vm.user=e.data.username;
+                        $vm.user_id=e.data.user_id;
+                        $VmAPI.set_token(e.data.token,e.data.api_url,e.data.username,e.data.user_id,e.data.nickname);
+                        location.reload(true);
+                    }
+                }
+                else{
+                    if(e.data.username!=undefined && e.data.token!=undefined){
+                        $vm.user_name=e.data.username;
+                        $vm.set_token(e.data.token,e.data.username);
+                        location.reload(true);
+                    }
                 }
             };
             //------------------------------------
@@ -204,7 +214,7 @@
             right:3px;
             font-size:11px;
             line-height:13px;
-            color:#fff;
+            color:#333;
             z-index: 99999;
         }
         #vm_username{

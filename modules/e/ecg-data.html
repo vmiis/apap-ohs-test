@@ -7,21 +7,12 @@
             //-------------------------------------
             VmInclude:__COMPONENT__/g/grid.01.js
             //-------------------------------------
-            $('#new__ID').hide();
-            $('#save__ID').hide();
-            //-------------------------------------
-            var fields="Stratum,Randomisation_Number,Tratment";
-            m.fields=fields+",Submit_date,Submitted_by";
+            var fields="File";
+            VmInclude:__CURRENT_PATH__/../../s/shared-task-data.js
             //-------------------------------------
         }
     </script>
     <style>
         VmInclude:__COMPONENT__/g/grid.01.css
-        #D__ID{
-            height:100%;
-            overflow:auto;
-            animation: vm_module_fadein 1.0s;
-            background-color: #fff;
-        }
     </style>
 </div>
