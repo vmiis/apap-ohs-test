@@ -720,7 +720,6 @@
                         </div>
                     </div>
                 </div>
-
                 <hr style='border-top:1px solid #000;margin:0'></hr>
                 <div class="row">
                     <div class=col-lg-6>49. I am satisfied with life in general</div>
@@ -735,10 +734,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
                 <!---------------------------------------------------->
 
 
@@ -756,10 +751,10 @@
     <script>
     	function F__ID(){
             //-------------------------------------
-            VmInclude:__COMPONENT__/module/form.v1.js
-            VmInclude:__CURRENT_PATH__/task-form.js
+            VmInclude:'__COMPONENT__/f/form.01.js'
+            VmInclude:'__CURRENT_PATH__/../../s/shared-task-form.js'
             //-------------------------------------
-            var before_submit=m.before_submit;
+            var before_submit2=m.before_submit;
             m.before_submit=function(record,dbv){
                 var total=0;
                 total+=parseFloat(record.sri2);
@@ -841,7 +836,7 @@
                 record.SRI_SS=(record.SRI_RC+record.SRI_PF+record.SRI_AS+record.SRI_SR+record.SRI_AX+record.SRI_WB+record.SRI_SF)/7;
 
 
-                return before_submit(record,dbv);
+                return before_submit2(record,dbv);
     		}
     		//-------------------------------------
     	}

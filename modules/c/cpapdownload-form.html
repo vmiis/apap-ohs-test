@@ -1,7 +1,7 @@
 <div id=D__ID>
     <section id=form_container__ID>
         <div id=header__ID>
-    	    Pulse Wave Analysis
+            CPAP download
     	</div>
     	<form id=F__ID>
             <div class="container">
@@ -23,7 +23,7 @@
                 <div class='row row__ID'>
                     <div class="col">
                         <span>FILE UPLOAD (PDF)</span>
-						<div class="form-control">
+                        <div class="form-control">
                             <u style='cursor:pointer' id=link_file__ID></u>
                             <br>
                             <input type="file" name=file style="margin-top:6px" /> <button type="button" id=x_file__ID>Remove</button>
@@ -32,26 +32,44 @@
                 </div>
                 <div class='row row__ID'>
                     <div class="col">
-                        <span>Brachial Blood Pressure</span>
-                        <input type=text class=form-control name=brachial>
+                        <span>Date</span>
+                        <input type=date class=form-control name=date>
                     </div>
                 </div>
                 <div class='row row__ID'>
                     <div class="col">
-                        <span>Pulse Pressure</span>
-                        <input type=text class=form-control name=pulse>
+                        <span>AHI</span>
+                        <input type=text class=form-control name=ahi>
                     </div>
                 </div>
                 <div class='row row__ID'>
                     <div class="col">
-                        <span>Augmentation Pressure</span>
-                        <input type=text class=form-control name=aug_pressure>
+                        <span>Leak</span>
+                        <input type=text class=form-control name=leak>
                     </div>
                 </div>
                 <div class='row row__ID'>
                     <div class="col">
-                        <span>Augmentation Index</span>
-                        <input type=text class=form-control name=aug_index>
+                        <span>90th percentile Pressure (if APAP)</span>
+                        <input type=text class=form-control name=apap_pressure>
+                    </div>
+                </div>
+                <div class='row row__ID'>
+                    <div class="col">
+                        <span>Average Hours of Use</span>
+                        <input type=text class=form-control name=average_use>
+                    </div>
+                </div>
+                <div class='row row__ID'>
+                    <div class="col">
+                        <span>Percentage (%) use of >4 hours per Night</span>
+                        <input type=text class=form-control name=more_4hr>
+                    </div>
+                </div>
+                <div class='row row__ID'>
+                    <div class="col">
+                        <span>Total Hours of Use</span>
+                        <input type=text class=form-control name=totaluse>
                     </div>
                 </div>
                 <!---------------------------------------------------->
@@ -59,11 +77,11 @@
 
                 <!-- submit button part for all tsak forms------------>
                 <br>
-    			<div class="row">
-    				<div class=col>
-    					<button id=submit__ID type="submit" class="btn btn-secondary">Submit</button>
-    				</div>
-    			</div>
+                <div class="row">
+                    <div class=col>
+                        <button id=submit__ID type="submit" class="btn btn-secondary">Submit</button>
+                    </div>
+                </div>
                 <!---------------------------------------------------->
         	</div>
         </form>
@@ -73,7 +91,7 @@
         function F__ID(){
             //-------------------------------------
             VmInclude:'__COMPONENT__/f/form.01.js'
-            VmInclude:'__CURRENT_PATH__/../../s/shared-task-form.js'
+                VmInclude:'__CURRENT_PATH__/../../s/shared-task-form.js'
             //-------------------------------------
             var load2=m.load;
             m.load=function(){

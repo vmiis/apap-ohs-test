@@ -13,14 +13,9 @@
             m.cell_render=function(records,I,field,td,set_value,source){
                 switch(field){
     				case 'Color':
-        				var html='<input style="border:0;width:40px" type=Color />';
-        				$vm.render_color_field(records[I],'__ID',td,html)
+                        var html='<div style="height:18px;width:18px;background-color:'+records[I][field]+'"></div>';
+                        td.html(html);
     				break;
-                    case 'Participant_uid':
-    				case 'Participant':
-    				case 'Task':
-    					records[I].vm_readonly[field]=true;
-                        break;
                 }
             }
             //-------------------------------------

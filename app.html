@@ -33,13 +33,15 @@
         //sql server database service address
         $vm.api_type="sqlserver"; 
         $vm.qid='91000127'; //permission control table
-        $VmAPI={}
         $VmAPI.api_base="https://cbs.wappsystem.com/dev/";
         //------------------------------------
         //list all your modules used in your application
         //Setup each module's Table (you can create your own tables in backoffice)
         $vm.module_list={
-            "home":                             {url:"$A/modules/h/home.html"},
+
+
+
+            "home":                             {url:"$A/modules/h/home.html",router:1},
             "panel-main":  		  			    {url:"$A/modules/p/panel-main.html",router:1},
             "panel-child": 		  			    {url:"$A/modules/p/panel-child.html"},
             "panel-permission":   			    {url:"$A/modules/p/panel-permission.html",router:1},
@@ -56,31 +58,93 @@
 		    "edc-notes-form":	  		        {url:"$A/modules/e/edc-notes-form.html",Table:"91000125",},
             "participant-data":     	        {url:"$A/modules/p/participant-data.html", Table:"91000124",form_module:"participant-form"},
 		    "participant-form":     	        {url:"$A/modules/p/participant-form.html", Table:"91000124",},
+            
+            "online-questionnaire-setup": 	    {url:"$A/modules/o/online-questionnaire-setup.html",Table:"91000124"},
+            "online-questionnaire-panel":       {url:"$A/modules/o/online-questionnaire-panel.html"},
+            "online-questionnaire-login":       {url:"$A/modules/o/online-questionnaire-login.html"},
+            
+            
             "randomisation-low-co2-table-data":	{url:"$A/modules/r/randomisation-low-co2-table-data.html",Table:"91000194",router:1},
 		    "randomisation-high-co2-table-data":{url:"$A/modules/r/randomisation-high-co2-table-data.html",Table:"91000195",router:1},
             
             "v1-consent-data":	 	            {url:"$A/modules/c/consent-data.html",Table:"91000130",form_module:"v1-consent-form"},
-		    "v1-consent-form":	 	            {url:"$A/modules/c/consent-form.html",Table:"91000130",quest:"1"},
+		    "v1-consent-form":	 	            {url:"$A/modules/c/consent-form.html",Table:"91000130"},
             "v1-gen-info-data":	 	            {url:"$A/modules/g/geninfo-data.html",Table:"91000131",	form_module:"v1-gen-info-form"},
 		    "v1-gen-info-form":	 	            {url:"$A/modules/g/geninfo-form.html",Table:"91000131",	quest:"1"},
             "v1-anthropometry":	 	            {url:"$A/modules/a/anthro-data.html",Table:"91000176",form_module:"v1-anthropometry-form"},
-		    "v1-anthropometry-form":	 	    {url:"$A/modules/a/anthro-form.html",Table:"91000176",quest:"1"},
+		    "v1-anthropometry-form":	 	    {url:"$A/modules/a/anthro-form.html",Table:"91000176"},
             "v1-med-hx":	 	                {url:"$A/modules/m/medhx-data.html",Table:"91000170",form_module:"v1-med-hx-form"},
-		    "v1-med-hx-form":	 	            {url:"$A/modules/m/medhx-form.html",Table:"91000170",quest:"1"},
+		    "v1-med-hx-form":	 	            {url:"$A/modules/m/medhx-form.html",Table:"91000170"},
             "v1-social-hx":	 	                {url:"$A/modules/s/social-data.html",Table:"91000174",form_module:"v1-social-hx-form"},
-		    "v1-social-hx-form":	 	        {url:"$A/modules/s/social-form.html",Table:"91000174",quest:"1"},
+		    "v1-social-hx-form":	 	        {url:"$A/modules/s/social-form.html",Table:"91000174"},
             "v1-physical":	 	                {url:"$A/modules/p/physical-data.html",Table:"91000168",form_module:"v1-physical-form"},
-            "v1-physical-form":	 	            {url:"$A/modules/p/physical-form.html",Table:"91000168",quest:"1"},
+            "v1-physical-form":	 	            {url:"$A/modules/p/physical-form.html",Table:"91000168"},
             "v1-medication":	 	            {url:"$A/modules/m/med-data.html",Table:"91000158",form_module:"v1-medication-form"},
-            "v1-medication-form":	 	        {url:"$A/modules/m/med-form.html",Table:"91000158",quest:"1"},
+            "v1-medication-form":	 	        {url:"$A/modules/m/med-form.html",Table:"91000158"},
             "v1-spirometry":	 	            {url:"$A/modules/s/spirometry-data.html",Table:"91000160",form_module:"v1-spirometry-form"},
-		    "v1-spirometry-form":	 	        {url:"$A/modules/s/spirometry-form.html",Table:"91000160",quest:"1"},
+		    "v1-spirometry-form":	 	        {url:"$A/modules/s/spirometry-form.html",Table:"91000160"},
             "v1-ecg":	 	                    {url:"$A/modules/e/ecg-data.html",Table:"91000147",form_module:"v1-ecg-form"},
-		    "v1-ecg-form":	 	                {url:"$A/modules/e/ecg-form.html",Table:"91000147",quest:"1"},
-            "v1-bloodgas":	 	                {url:"$A/modules/b/bloodgas-data.html",Table:"91000148",form_module:"v1-bloodgas-form"},
-		    "v1-bloodgas-form":	 	            {url:"$A/modules/b/bloodgas-form.html",Table:"91000148",quest:"1"},
+		    "v1-ecg-form":	 	                {url:"$A/modules/e/ecg-form.html",Table:"91000147"},
+            "v1-bloodgas":	 	                {url:"$A/modules/b/bloodgas-data.html",Table:"91000157",form_module:"v1-bloodgas-form"},
+		    "v1-bloodgas-form":	 	            {url:"$A/modules/b/bloodgas-form.html",Table:"91000157"},
             "v1-blood":	 	                    {url:"$A/modules/b/blood-data.html",Table:"91000167",form_module:"v1-blood-form"},
-		    "v1-blood-form":	 	            {url:"$A/modules/b/blood-form.html",Table:"91000167",quest:"1"},
+		    "v1-blood-form":	 	            {url:"$A/modules/b/blood-form.html",Table:"91000167"},
+            "v1-pwa1":	 	                    {url:"$A/modules/p/pwa-data.html",Table:"91000154",form_module:"v1-pwa1-form"},
+            "v1-pwa1-form":	 	                {url:"$A/modules/p/pwa-form.html",Table:"91000154"},
+            "v1-pwa2":	 	                    {url:"$A/modules/p/pwa-data.html",Table:"91000155",form_module:"v1-pwa2-form"},
+            "v1-pwa2-form":	 	                {url:"$A/modules/p/pwa-form.html",Table:"91000155"},
+            "v1-pwv1":	 	                    {url:"$A/modules/p/pwv-data.html",Table:"91000156",form_module:"v1-pwv1-form"},
+		    "v1-pwv1-form":	 	                {url:"$A/modules/p/pwv-form.html",Table:"91000156"},
+		    "v1-pwv2":	 	                    {url:"$A/modules/p/pwv-data.html",Table:"91000151",form_module:"v1-pwv2-form"},
+		    "v1-pwv2-form":	 	                {url:"$A/modules/p/pwv-form.html",Table:"91000151"},
+            "v1-cpappressure":	 	            {url:"$A/modules/p/pressurecpap-data.html",Table:"91000159",form_module:"v1-cpappressure-form"},
+		    "v1-cpappressure-form":	 	        {url:"$A/modules/p/pressurecpap-form.html",Table:"91000159"},
+            "v1-apappressure":	 	            {url:"$A/modules/p/pressureapap-data.html",Table:"91000152",form_module:"v1-apappressure-form"},
+            "v1-apappressure-form":	 	        {url:"$A/modules/p/pressureapap-form.html",Table:"91000152"},
+            
+            "v1-ess":	 	                    {url:"$A/modules/e/epworth-sleepiness-scale-data.html",Table:"91000150",form_module:"v1-ess-form"},
+		    "v1-ess-form":	 	                {url:"$A/modules/e/epworth-sleepiness-scale-form.html",Table:"91000150",task_name:"Visit 1 - Epworth Sleepiness Scale"},
+		    "v1-sri":	 	                    {url:"$A/modules/s/sri-data.html",Table:"91000149",form_module:"v1-sri-form"},
+		    "v1-sri-form":	 	                {url:"$A/modules/s/sri-form.html",Table:"91000149",task_name:"Visit 1 - Severe Respiratory Insufficiency Questionnaire"},
+		    "v1-fosq":	 	                    {url:"$A/modules/f/fosq-data.html",Table:"91000153",form_module:"v1-fosq-form"},
+            "v1-fosq-form":	 	                {url:"$A/modules/f/fosq-form.html",Table:"91000153",task_name:"Visit 1 - Functional Outcomes of Sleep Questionnaire"},
+            
+            "1m-bloodgas":	 	                {url:"$A/modules/b/bloodgas-data.html",Table:"91000148",form_module:"1m-bloodgas-form"},
+		    "1m-bloodgas-form":	 	            {url:"$A/modules/b/bloodgas-form.html",Table:"91000148"},
+            "1m-spirometry":	 	            {url:"$A/modules/s/spirometry-data.html",Table:"91000142",form_module:"1m-spirometry-form"},
+		    "1m-spirometry-form":	 	        {url:"$A/modules/s/spirometry-form.html",Table:"91000142"},
+            "1m-adverseevents":	 	            {url:"$A/modules/a/adverseevents-data.html",Table:"91000144",form_module:"1m-adverseevents-form"},
+		    "1m-adverseevents-form":	 	    {url:"$A/modules/a/adverseevents-form.html",Table:"91000144"},
+            "1m-cpapdownload":	 	            {url:"$A/modules/c/cpapdownload-data.html",Table:"91000146",form_module:"1m-cpapdownload-form"},
+            "1m-cpapdownload-form":	 	        {url:"$A/modules/c/cpapdownload-form.html",Table:"91000146"},
+
+
+            "3m-adverseevents":	 	            {url:"$A/modules/a/adverseevents-data.html",Table:"91000143",form_module:"3m-adverseevents-form"},
+		    "3m-adverseevents-form":	 	    {url:"$A/modules/a/adverseevents-form.html",Table:"91000143"},
+            "3m-bloodgas":	 	                {url:"$A/modules/b/bloodgas-data.html",Table:"91000141",form_module:"3m-bloodgas-form"},
+		    "3m-bloodgas-form":	 	            {url:"$A/modules/b/bloodgas-form.html",Table:"91000141"},
+            "3m-blood":	 	                    {url:"$A/modules/b/blood-data.html",Table:"91000145",form_module:"3m-blood-form"},
+		    "3m-blood-form":	 	            {url:"$A/modules/b/blood-form.html",Table:"91000145"},
+            "3m-ecg":	 	                    {url:"$A/modules/e/ecg-data.html",Table:"91000132",form_module:"3m-ecg-form"},
+		    "3m-ecg-form":	 	                {url:"$A/modules/e/ecg-form.html",Table:"91000132"},
+            
+            "3m-pwa1":	 	                    {url:"$A/modules/p/pwa-data.html",Table:"91000140",form_module:"3m-pwa1-form"},
+            "3m-pwa1-form":	 	                {url:"$A/modules/p/pwa-form.html",Table:"91000140"},
+            "3m-pwa2":	 	                    {url:"$A/modules/p/pwa-data.html",Table:"91000137",form_module:"3m-pwa2-form"},
+            "3m-pwa2-form":	 	                {url:"$A/modules/p/pwa-form.html",Table:"91000137"},
+            "3m-pwv1":	 	                    {url:"$A/modules/p/pwv-data.html",Table:"91000139",form_module:"3m-pwv1-form"},
+		    "3m-pwv1-form":	 	                {url:"$A/modules/p/pwv-form.html",Table:"91000139"},
+		    "3m-pwv2":	 	                    {url:"$A/modules/p/pwv-data.html",Table:"91000138",form_module:"3m-pwv2-form"},
+		    "3m-pwv2-form":	 	                {url:"$A/modules/p/pwv-form.html",Table:"91000138"},
+            "3m-cpapdownload":	 	            {url:"$A/modules/c/cpapdownload-data.html",Table:"91000135",form_module:"3m-cpapdownload-form"},
+            "3m-cpapdownload-form":	 	        {url:"$A/modules/c/cpapdownload-form.html",Table:"91000135"},
+
+            "3m-ess":	 	                    {url:"$A/modules/e/epworth-sleepiness-scale-data.html",Table:"91000136",form_module:"3m-ess-form"},
+		    "3m-ess-form":	 	                {url:"$A/modules/e/epworth-sleepiness-scale-form.html",Table:"91000136",task_name:"3 Month - Epworth Sleepiness Scale"},
+		    "3m-sri":	 	                    {url:"$A/modules/s/sri-data.html",Table:"91000133",form_module:"3m-sri-form"},
+		    "3m-sri-form":	 	                {url:"$A/modules/s/sri-form.html",Table:"91000133",task_name:"3 Month - Severe Respiratory Insufficiency Questionnaire"},
+		    "3m-fosq":	 	                    {url:"$A/modules/f/fosq-data.html",Table:"91000132",form_module:"3m-fosq-form"},
+            "3m-fosq-form":	 	                {url:"$A/modules/f/fosq-form.html",Table:"91000132",task_name:"3 Month - Functional Outcomes of Sleep Questionnaire"},
         }
         //------------------------------------
         for(p in $vm.module_list) $vm.module_list[p].url=$vm.replace_url($vm.module_list[p].url);
